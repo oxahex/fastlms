@@ -1,13 +1,14 @@
 package com.zerobase.fastlms.member.entity;
 
+import com.zerobase.fastlms.history.entity.LoginHistory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -39,5 +40,7 @@ public class Member implements MemberCode {
     private String zipcode;
     private String addr;
     private String addrDetail;
-    
+
+    @OneToMany(mappedBy = "member")
+    private List<LoginHistory> loginHistories;
 }
