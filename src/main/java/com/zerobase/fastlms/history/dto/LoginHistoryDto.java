@@ -19,6 +19,7 @@ public class LoginHistoryDto {
 
     public static LoginHistoryDto of(LoginHistory loginHistory) {
         return LoginHistoryDto.builder()
+                .id(loginHistory.getId())
                 .loginDt(loginHistory.getLoginDt())
                 .userAgent(loginHistory.getUserAgent())
                 .userIp(loginHistory.getUserIp()).build();

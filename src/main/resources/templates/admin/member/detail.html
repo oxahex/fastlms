@@ -98,8 +98,34 @@
 
         <div>
             <a href="list.do"> 목록 </a>
-
         </div>
+
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    NO
+                </th>
+                <th>
+                    로그인 일자
+                </th>
+                <th>
+                    접속 IP
+                </th>
+                <th>
+                    접속 UserAgent
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="history : ${loginHistory}">
+                <td th:text="${history.id}">1</td>
+                <td th:text="${#temporals.format(history.loginDt, 'yyyy.MM.dd HH:mm')}">2023.10.02 14:12</td>
+                <td th:text="${history.userIp}">127.0.0.1</td>
+                <td th:text="${history.userAgent}">UserAgent</td>
+            </tr>
+            </tbody>
+        </table>
 
 
     </div>

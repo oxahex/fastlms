@@ -9,7 +9,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -36,5 +37,12 @@ public class LoginHistoryService {
 
         // 로그인 히스토리 저장
         loginHistoryRepository.save(loginHistory);
+    }
+
+    public List<LoginHistoryDto> getUserLoginHistory(String userId) {
+        List<LoginHistory> loginHistoryList =
+                loginHistoryRepository.findAllByMemberUserId(userId);
+
+        return loginHistoryList.stream().map(LoginHistoryDto::of).collect(Collectors.toList());
     }
 }
