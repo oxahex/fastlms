@@ -5,6 +5,8 @@ import com.zerobase.fastlms.admin.mapper.MemberMapper;
 import com.zerobase.fastlms.admin.model.MemberParam;
 import com.zerobase.fastlms.components.MailComponents;
 import com.zerobase.fastlms.course.model.ServiceResult;
+import com.zerobase.fastlms.history.entity.LoginHistory;
+import com.zerobase.fastlms.history.repository.LoginHistoryRepository;
 import com.zerobase.fastlms.member.entity.Member;
 import com.zerobase.fastlms.member.entity.MemberCode;
 import com.zerobase.fastlms.member.exception.MemberNotEmailAuthException;
@@ -36,6 +38,7 @@ import java.util.UUID;
 public class MemberServiceImpl implements MemberService {
     
     private final MemberRepository memberRepository;
+    private final LoginHistoryRepository loginHistoryRepository;
     private final MailComponents mailComponents;
     
     private final MemberMapper memberMapper;
@@ -66,7 +69,8 @@ public class MemberServiceImpl implements MemberService {
                 .userStatus(Member.MEMBER_STATUS_REQ)
                 .build();
         memberRepository.save(member);
-        
+
+        System.out.println(uuid);
         String email = parameter.getUserId();
         String subject = "fastlms 사이트 가입을 축하드립니다. ";
         String text = "<p>fastlms 사이트 가입을 축하드립니다.<p><p>아래 링크를 클릭하셔서 가입을 완료 하세요.</p>"
@@ -135,6 +139,17 @@ public class MemberServiceImpl implements MemberService {
             for(MemberDto x : list) {
                 x.setTotalCount(totalCount);
                 x.setSeq(totalCount - parameter.getPageStart() - i);
+
+                LoginHistory loginHistory =
+                        loginHistoryRepository.findFirstByMemberUserIdOrderByLoginDtDesc(x.getUserId())
+                                .orElse(null);
+
+                if (loginHistory == null) {
+                    x.setLastLogInDt(null);
+                } else {
+                    x.setLastLogInDt(loginHistory.getLoginDt());
+                }
+
                 i++;
             }
         }

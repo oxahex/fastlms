@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
 public class LoginHistoryDto {
 
     private Long id;
-    private LocalDateTime loginDate;
+    private LocalDateTime loginDt;
     private String userAgent;
     private String userIp;
 
     public static LoginHistoryDto of(LoginHistory loginHistory) {
         return LoginHistoryDto.builder()
-                .loginDate(loginHistory.getLoginDate())
+                .loginDt(loginHistory.getLoginDt())
                 .userAgent(loginHistory.getUserAgent())
                 .userIp(loginHistory.getUserIp()).build();
     }

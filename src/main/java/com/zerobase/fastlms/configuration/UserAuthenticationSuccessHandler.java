@@ -35,7 +35,7 @@ public class UserAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
 
 
         System.out.println(authentication.getPrincipal().toString());
-        loginHistoryService.saveLoginHistory(
+        loginHistoryService.addLoginHistory(
                 request.getParameter("username"),
                 LocalDateTime.now(),
                 RequestUtils.getUserAgent(request),
