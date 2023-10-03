@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -75,5 +77,14 @@ public class BannerService {
                 }
             }
         }
+    }
+
+    public List<BannerDto> getFrontList() {
+
+        List<Banner> bannerList =
+                bannerRepository.findAllByFrontShowYnIsTrueOrderBySortOrderAsc();
+
+        return bannerList.stream()
+                .map(BannerDto::of).collect(Collectors.toList());
     }
 }

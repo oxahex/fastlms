@@ -12,10 +12,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
+    <script>
+        $(document).ready(function(){
+            $(".slider").bxSlider();
+        });
+    </script>
+
     <div class="home__slider">
-        <div class="bxslider">
-<!--            <a href="#"><img alt="" <img th:src="${detail.urlFilename}"/></a>-->
-            <a href="#"><img alt="" src="/files/banner/2023/10/03/cef4d29d9a2f45e8ad5588c555c183f2.jpg"/></a>
+        <div class="slider">
+            <div th:each="x : ${list}">
+                <a th:href="${x.targetUrl}">
+                    <img style="width: 100%;object-fit: contain ;max-width: 400px;" th:alt="${x.alterText}" th:src="${x.urlFileName}" />
+                </a>
+            </div>
         </div>
     </div>
 
