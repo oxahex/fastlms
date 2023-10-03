@@ -57,6 +57,23 @@ public class BannerService {
         banner.setUrlFileName(bannerInput.getUrlFileName());
 
         bannerRepository.save(banner);
+    }
 
+    public void deleteBanners(String idList) {
+
+        if (idList != null && !idList.isEmpty()) {
+            String[] ids = idList.split(",");
+            for (String x : ids) {
+                long id = 0L;
+                try {
+                    id = Long.parseLong(x);
+                } catch (Exception e) {
+                }
+
+                if (id > 0) {
+                    bannerRepository.deleteById(id);
+                }
+            }
+        }
     }
 }
