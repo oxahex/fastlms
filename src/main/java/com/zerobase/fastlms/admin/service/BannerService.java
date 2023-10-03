@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 public class BannerService {
 
     private final BannerRepository bannerRepository;
-//    private final BannerMapper bannerMapper;
 
     public Page<BannerDto> list(Pageable pageable) {
         Page<Banner> bannerList = bannerRepository.findAll(pageable);
@@ -43,6 +42,21 @@ public class BannerService {
     }
 
     public void editBanner(BannerInput bannerInput) {
-        // 수정
+
+        System.out.println("edit banner input: " + bannerInput);
+        Banner banner = bannerRepository.findById(bannerInput.getId())
+                .orElseThrow(() -> new RuntimeException("해당 배너가 없습니다."));
+
+        banner.setBannerName(bannerInput.getBannerName());
+        banner.setAlterText(bannerInput.getAlterText());
+        banner.setTargetUrl(bannerInput.getTargetUrl());
+        banner.setOpenBlankYn(bannerInput.getOpenBlankYn());
+        banner.setSortOrder(bannerInput.getSortOrder());
+        banner.setFrontShowYn(bannerInput.getFrontShowYn());
+        banner.setFileName(bannerInput.getFileName());
+        banner.setUrlFileName(bannerInput.getUrlFileName());
+
+        bannerRepository.save(banner);
+
     }
 }

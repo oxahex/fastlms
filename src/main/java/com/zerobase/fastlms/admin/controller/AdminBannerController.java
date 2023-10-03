@@ -75,12 +75,6 @@ public class AdminBannerController extends BaseController {
             BannerInput bannerInput
     ) {
 
-        System.out.println("bannerInput: " + bannerInput.toString());
-
-        System.out.println("file originalFileName: " + file.getOriginalFilename());
-        System.out.println("file name: " + file.getName());
-        System.out.println("file resource: " + file.getResource());
-
         String saveFilename = "";
         String urlFilename = "";
 
