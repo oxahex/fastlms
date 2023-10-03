@@ -142,7 +142,7 @@
             </td>
 
             <td>
-                <img th:alt="${x.alterText}" th:src="${x.urlFileName}" />
+                <img style="width: 100%;object-fit: contain ;max-width: 400px;" th:alt="${x.alterText}" th:src="${x.urlFileName}" />
             </td>
 
             <td th:text="${#temporals.format(x.regDt, 'yyyy.MM.dd HH:mm')}">2023.10.02 14:12</td>
