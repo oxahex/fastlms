@@ -21,7 +21,7 @@
     <div class="home__slider">
         <div class="slider">
             <div th:each="x : ${list}">
-                <a th:href="${x.targetUrl}">
+                <a th:href="${x.targetUrl}" th:target="${x.openBlankYn ? '_blank' : '_self'}">
                     <img style="width: 100%;object-fit: contain ;max-width: 400px;" th:alt="${x.alterText}" th:src="${x.urlFileName}" />
                 </a>
             </div>
