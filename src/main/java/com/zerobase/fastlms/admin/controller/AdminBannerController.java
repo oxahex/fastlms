@@ -75,10 +75,17 @@ public class AdminBannerController extends BaseController {
             BannerInput bannerInput
     ) {
 
+        System.out.println("filename: " + file.getName());
+        System.out.println("fileOriginName: " + file.getOriginalFilename());
+        System.out.println("fileIsEmpty: " + file.isEmpty());
+
         String saveFilename = "";
         String urlFilename = "";
 
-        if (file != null) {
+        // 수정 시 파일이 업로드 되어 있지 않기 떄문에 없는 걸로 나옴.
+        // 기존 Banner 정보를 가져와서 화면에 뿌려주는데 이게 파일은 아니니까 없음.
+        // 수정할 떄, 파일이 없는 경우 처리가 필요.
+        if (!file.isEmpty()) {
             String originalFilename = file.getOriginalFilename();
 
             String baseLocalPath = "/Users/hyesech/fastlms3/src/main/resources/static/files/banner";

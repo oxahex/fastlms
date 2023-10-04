@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -45,7 +46,8 @@ public class BannerService {
 
     public void editBanner(BannerInput bannerInput) {
 
-        System.out.println("edit banner input: " + bannerInput);
+        System.out.println("edit banner input: " + bannerInput.getFileName());
+        System.out.println("edit banner input: " + bannerInput.getUrlFileName());
         Banner banner = bannerRepository.findById(bannerInput.getId())
                 .orElseThrow(() -> new RuntimeException("해당 배너가 없습니다."));
 
@@ -55,8 +57,10 @@ public class BannerService {
         banner.setOpenBlankYn(bannerInput.getOpenBlankYn());
         banner.setSortOrder(bannerInput.getSortOrder());
         banner.setFrontShowYn(bannerInput.getFrontShowYn());
-        banner.setFileName(bannerInput.getFileName());
-        banner.setUrlFileName(bannerInput.getUrlFileName());
+        if (!Objects.equals(bannerInput.getFileName(), "") && !Objects.equals(bannerInput.getUrlFileName(), "")) {
+            banner.setFileName(bannerInput.getFileName());
+            banner.setUrlFileName(bannerInput.getUrlFileName());
+        }
 
         bannerRepository.save(banner);
     }
